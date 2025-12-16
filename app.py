@@ -33,20 +33,38 @@ APP_VERSION: str = "1.0.0-enterprise"
 BUILD_DATE: str = "2025-01-01"
 
 # -----------------------------------------------------------------------------
-# SECTION 3 — GLOBAL CONSTANTS
+# SECTION 3 — GLOBAL CONSTANTS (ENTERPRISE SAFE)
 # -----------------------------------------------------------------------------
+from datetime import timezone, timedelta
+
+# ------------------ CORE COLUMN NAMES ------------------
 TIME_COLUMN: str = "Date Time"
 POWER_COLUMN: str = "Power (kW)"
 SOC_COLUMN: str = "SOC (%)"
 
+# ------------------ TIME SYSTEM ------------------
+# Always use timezone-aware timestamps (UTC recommended for engineering systems)
+APP_TIMEZONE = timezone.utc
+# If you prefer local time instead, use:
+# APP_TIMEZONE = timezone(timedelta(hours=7))  # Example: UTC+7
+
+# Display format (used only for UI, NOT for storage)
+TIME_DISPLAY_FORMAT: str = "%Y-%m-%d %H:%M:%S"
+
+# ------------------ POWER LIMITS ------------------
 DEFAULT_MIN_POWER: float = -200.0
 DEFAULT_MAX_POWER: float = 200.0
 
 POWER_UNIT: str = "kW"
 SOC_UNIT: str = "%"
 
+# ------------------ ANALYTICS DEFAULTS ------------------
 ROLLING_WINDOWS_DEFAULT: int = 3
-MAX_UNDO_DEPTH: int = 2000   # enterprise-grade undo capacity
+
+# ------------------ SYSTEM SAFETY ------------------
+# Maximum undo depth to prevent memory exhaustion
+MAX_UNDO_DEPTH: int = 2000
+
 
 # -----------------------------------------------------------------------------
 # SECTION 4 — PAGE CONFIGURATION
